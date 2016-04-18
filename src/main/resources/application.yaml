@@ -1,0 +1,4 @@
+spring:
+  data:
+    cassandra:
+      keyspace-name: sample

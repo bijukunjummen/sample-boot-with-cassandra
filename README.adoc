@@ -1,0 +1,31 @@
+= Install a local Cassandra
+
+The simplest way to install Cassandra is via the excellent ccm tool.
+
+[source]
+----
+ccm create test -v 2.2.5 -n 3 -s
+----
+
+
+Connect to one of the nodes and run these cql statements
+
+[source]
+----
+CREATE KEYSPACE IF NOT EXISTS sample WITH replication = {'class':'SimpleStrategy', 'replication_factor':1};
+
+use sample;
+
+CREATE TABLE IF NOT EXISTS  sample.hotels (
+    id UUID,
+    name varchar,
+    address varchar,
+    zip varchar,
+    version int,
+    primary key((id))
+);
+----
+
+= Spring Data Cassandra
+
+Run the test which makes use of Spring Data Cassandra - `cass.SampleCassandraApplicationTest`
