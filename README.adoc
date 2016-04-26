@@ -1,6 +1,6 @@
 = Install a local Cassandra
 
-The simplest way to install Cassandra is via the excellent ccm tool.
+The simplest way to install Cassandra is via the excellent https://github.com/pcmanus/ccm[ccm] tool.
 
 [source]
 ----
@@ -8,10 +8,17 @@ ccm create test -v 2.2.5 -n 3 -s
 ----
 
 
-Connect to one of the nodes and run these cql statements
+Connect to one of the nodes:
+[source]
+----
+ccm node1 cqlsh
+----
+
+And run these cql statements
 
 [source]
 ----
+
 CREATE KEYSPACE IF NOT EXISTS sample WITH replication = {'class':'SimpleStrategy', 'replication_factor':1};
 
 use sample;
