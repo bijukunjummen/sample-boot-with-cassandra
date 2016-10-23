@@ -4,7 +4,7 @@ The simplest way to install Cassandra is via the excellent https://github.com/pc
 
 [source]
 ----
-ccm create test -v 2.2.5 -n 3 -s
+ccm create test -v 3.7 -n 3 -s --vnodes
 ----
 
 
