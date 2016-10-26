@@ -43,4 +43,9 @@ public class HotelController {
     public List<HotelByLetter> findHotelsWithLetter(@PathVariable("letter") String letter) {
         return this.hotelService.findHotelsStartingWith(letter);
     }
+
+    @GetMapping(path = "/fromstate/{state}")
+    public List<Hotel> findHotelsInState(@PathVariable("state") String state) {
+        return this.hotelService.findHotelsInState(state);
+    }
 }

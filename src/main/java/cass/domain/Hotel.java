@@ -1,7 +1,5 @@
 package cass.domain;
 
-import com.google.common.base.MoreObjects;
-import org.springframework.data.annotation.Version;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
@@ -19,6 +17,8 @@ public class Hotel implements Serializable {
     private String name;
 
     private String address;
+
+    private String state;
 
     private String zip;
 
@@ -61,14 +61,12 @@ public class Hotel implements Serializable {
         this.zip = zip;
     }
 
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("id", id)
-                .add("name", name)
-                .add("address", address)
-                .add("zip", zip)
-                .toString();
+    public String getState() {
+        return state;
     }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 }

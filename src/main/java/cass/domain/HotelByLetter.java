@@ -3,7 +3,7 @@ package cass.domain;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
-@Table("hotel_by_letter")
+@Table("hotels_by_letter")
 public class HotelByLetter {
 
     public HotelByLetter() {}
@@ -14,6 +14,7 @@ public class HotelByLetter {
         hotelByLetterKey.setName(hotel.getName());
         hotelByLetterKey.setHotelId(hotel.getId());
         this.setHotelByLetterKey(hotelByLetterKey);
+        this.setState(hotel.getState());
         this.setAddress(hotel.getAddress());
         this.setZip(hotel.getZip());
     }
@@ -22,6 +23,8 @@ public class HotelByLetter {
     private HotelByLetterKey hotelByLetterKey;
 
     private String address;
+
+    private String state;
 
     private String zip;
 
@@ -49,4 +52,11 @@ public class HotelByLetter {
         this.zip = zip;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }

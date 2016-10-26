@@ -56,4 +56,9 @@ public class HotelServiceImpl implements HotelService {
     public List<HotelByLetter> findHotelsStartingWith(String letter) {
         return this.hotelByLetterRepository.findByFirstLetter(letter);
     }
+
+    @Override
+    public List<Hotel> findHotelsInState(String state) {
+        return this.hotelRepository.findByState(state);
+    }
 }

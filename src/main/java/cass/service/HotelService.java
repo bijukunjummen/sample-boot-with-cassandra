@@ -14,4 +14,5 @@ public interface HotelService {
     void delete(UUID uuid);
 
     List<HotelByLetter> findHotelsStartingWith(String letter);
+    List<Hotel> findHotelsInState(String state);
 }
