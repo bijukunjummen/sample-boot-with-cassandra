@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.1.RELEASE'
+		springBootVersion = '1.5.0.BUILD-SNAPSHOT'
 	}
 	repositories {
 		mavenCentral()
@@ -8,13 +8,12 @@ buildscript {
 		maven { url "https://repo.spring.io/milestone" }
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'spring-boot' 
+apply plugin: 'org.springframework.boot'
 
 jar {
 	baseName = 'sample-boot-with-cassandra'
@@ -31,25 +30,10 @@ repositories {
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-//	compile('org.springframework.boot:spring-boot-starter-data-cassandra')
-	compile('org.springframework.boot:spring-boot-devtools')
+	compile('org.springframework.boot:spring-boot-starter-data-cassandra')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.springframework.data:spring-data-cassandra:1.5.0.BUILD-SNAPSHOT")
 	compile("org.springframework.data:spring-cql:1.5.0.BUILD-SNAPSHOT")
 	compile("com.datastax.cassandra:cassandra-driver-core:3.1.1")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-//	testCompile('org.cassandraunit:cassandra-unit-spring:2.2.2.1')
-}
-
-
-eclipse {
-	classpath {
-		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-		 containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
-	}
-}
-
-task wrapper(type: Wrapper) {
-	gradleVersion = '2.12'
 }

@@ -1,26 +1,41 @@
 package cass.service;
 
 import cass.domain.Hotel;
+import cass.domain.HotelByLetter;
+import cass.repository.HotelByLetterRepository;
 import cass.repository.HotelRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 public class HotelServiceImpl implements HotelService {
 
     private final HotelRepository hotelRepository;
 
-    public HotelServiceImpl(HotelRepository hotelRepository) {
+    private final HotelByLetterRepository hotelByLetterRepository;
+
+
+    public HotelServiceImpl(HotelRepository hotelRepository,
+                            HotelByLetterRepository hotelByLetterRepository) {
         this.hotelRepository = hotelRepository;
+        this.hotelByLetterRepository = hotelByLetterRepository;
     }
 
     @Override
     public Hotel save(Hotel hotel) {
-        return this.hotelRepository.save(hotel);
+        if (hotel.getId() == null) {
+            hotel.setId(UUID.randomUUID());
+        }
+        this.hotelRepository.save(hotel);
+        this.hotelByLetterRepository.save(new HotelByLetter(hotel));
+        return hotel;
     }
 
     @Override
     public Hotel update(Hotel hotel) {
-        return this.hotelRepository.save(hotel);
+        this.hotelRepository.save(hotel);
+        this.hotelByLetterRepository.save(new HotelByLetter(hotel));
+        return hotel;
     }
 
     @Override
@@ -30,6 +45,15 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public void delete(UUID uuid) {
-        this.hotelRepository.delete(uuid);
+        Hotel hotel = this.hotelRepository.findOne(uuid);
+        if (hotel != null) {
+            this.hotelRepository.delete(uuid);
+            this.hotelByLetterRepository.delete(new HotelByLetter(hotel));
+        }
+    }
+
+    @Override
+    public List<HotelByLetter> findHotelsStartingWith(String letter) {
+        return this.hotelByLetterRepository.findByFirstLetter(letter);
     }
 }

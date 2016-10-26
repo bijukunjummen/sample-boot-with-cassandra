@@ -1,6 +1,7 @@
 package cass.domain;
 
 import com.google.common.base.MoreObjects;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
@@ -20,8 +21,6 @@ public class Hotel implements Serializable {
     private String address;
 
     private String zip;
-
-    private Integer version;
 
     public Hotel() {
     }
@@ -62,13 +61,6 @@ public class Hotel implements Serializable {
         this.zip = zip;
     }
 
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     @Override
     public String toString() {
@@ -77,7 +69,6 @@ public class Hotel implements Serializable {
                 .add("name", name)
                 .add("address", address)
                 .add("zip", zip)
-                .add("version", version)
                 .toString();
     }
 }
