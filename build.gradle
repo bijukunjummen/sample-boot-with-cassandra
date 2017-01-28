@@ -1,19 +1,15 @@
-buildscript {
-	ext {
-		springBootVersion = '1.5.0.BUILD-SNAPSHOT'
-	}
-	repositories {
-		mavenCentral()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+//buildscript {
+//	dependencies {
+//		classpath "io.spring.gradle:dependency-management-plugin:0.4.0.RELEASE"
+//	}
+//}
+
+plugins {
+	id "io.spring.dependency-management" version "0.6.0.RELEASE"
+	id "org.springframework.boot" version "1.4.4.RELEASE"
 }
 
 apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
 
 jar {
 	baseName = 'sample-boot-with-cassandra'
@@ -24,16 +20,19 @@ targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
-	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-cassandra')
+//	compile('org.springframework.boot:spring-boot-starter-data-cassandra')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile("org.springframework.data:spring-data-cassandra:1.5.0.BUILD-SNAPSHOT")
-	compile("org.springframework.data:spring-cql:1.5.0.BUILD-SNAPSHOT")
-	compile("com.datastax.cassandra:cassandra-driver-core:3.1.1")
+	compile("org.springframework.data:spring-data-cassandra")
+	compile("com.datastax.cassandra:cassandra-driver-core:3.1.3")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.data:spring-data-releasetrain:Ingalls-RELEASE'
+	}
 }

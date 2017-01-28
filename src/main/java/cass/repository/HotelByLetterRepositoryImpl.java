@@ -19,7 +19,7 @@ public class HotelByLetterRepositoryImpl implements HotelByLetterRepositoryCusto
 
     @Override
     public List<HotelByLetter> findByFirstLetter(String letter) {
-        Select select = QueryBuilder.select().from("hotel_by_letter");
+        Select select = QueryBuilder.select().from("hotels_by_letter");
         select.where(QueryBuilder.eq("first_letter", letter));
         return this.cassandraTemplate.select(select, HotelByLetter.class);
     }
