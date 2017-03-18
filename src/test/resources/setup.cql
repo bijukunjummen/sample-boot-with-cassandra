@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS  sample.hotels (
     address varchar,
     state varchar,
     zip varchar,
-    primary key((id), name)
+    primary key(id)
 );
 
 CREATE TABLE IF NOT EXISTS  sample.hotels_by_letter (
@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS  sample.hotels_by_letter (
 CREATE MATERIALIZED VIEW sample.hotels_by_state AS
 SELECT id, name, address, state, zip FROM hotels
 WHERE state IS NOT NULL AND id IS NOT NULL AND name IS NOT NULL
-PRIMARY KEY ((state), name, id)
+PRIMARY KEY ((state), id)
 WITH CLUSTERING ORDER BY (name DESC)

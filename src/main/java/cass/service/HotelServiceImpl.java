@@ -33,8 +33,12 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public Hotel update(Hotel hotel) {
-        this.hotelRepository.save(hotel);
-        this.hotelByLetterRepository.save(new HotelByLetter(hotel));
+        Hotel existingHotel = this.hotelRepository.findOne(hotel.getId());
+        if (existingHotel != null) {
+            this.hotelByLetterRepository.delete(new HotelByLetter(existingHotel).getHotelByLetterKey());
+            this.hotelRepository.update(hotel);
+            this.hotelByLetterRepository.save(new HotelByLetter(hotel));
+        }
         return hotel;
     }
 
@@ -48,7 +52,7 @@ public class HotelServiceImpl implements HotelService {
         Hotel hotel = this.hotelRepository.findOne(uuid);
         if (hotel != null) {
             this.hotelRepository.delete(uuid);
-            this.hotelByLetterRepository.delete(new HotelByLetter(hotel));
+            this.hotelByLetterRepository.delete(new HotelByLetter(hotel).getHotelByLetterKey());
         }
     }
 

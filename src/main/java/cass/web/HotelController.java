@@ -33,6 +33,12 @@ public class HotelController {
         return new ResponseEntity<>(savedHotel, HttpStatus.CREATED);
     }
 
+    @PutMapping
+    public ResponseEntity<Hotel> update(@RequestBody Hotel hotel) {
+        Hotel savedHotel = this.hotelService.update(hotel);
+        return new ResponseEntity<>(savedHotel, HttpStatus.CREATED);
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") UUID uuid) {
         this.hotelService.delete(uuid);
